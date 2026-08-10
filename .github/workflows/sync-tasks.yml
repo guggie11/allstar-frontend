@@ -1,0 +1,42 @@
+name: Sync Tasks To GitHub
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Run without creating issues"
+        required: false
+        default: "false"
+  push:
+    paths:
+      - "TASKS.md"
+      - "scripts/sync_tasks_to_github.py"
+      - ".github/workflows/sync-tasks.yml"
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Sync tasks
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TASK_SYNC_TOKEN }}
+          GITHUB_PROJECT_ID: ${{ vars.GITHUB_PROJECT_ID }}
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+        run: |
+          test -n "$GITHUB_TOKEN"
+          if [ "$DRY_RUN" = "true" ]; then
+            python3 scripts/sync_tasks_to_github.py --project-id "$GITHUB_PROJECT_ID" --dry-run
+          else
+            python3 scripts/sync_tasks_to_github.py --project-id "$GITHUB_PROJECT_ID"
+          fi

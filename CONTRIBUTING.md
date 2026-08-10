@@ -94,6 +94,25 @@ Approval manusia wajib untuk:
 - konfigurasi environment penting
 - deploy ke staging atau production
 
+## Sinkronisasi TASKS ke GitHub
+
+Repo ini menyediakan automasi untuk mengubah checklist di `TASKS.md` menjadi GitHub Issues.
+
+File terkait:
+- `scripts/sync_tasks_to_github.py`
+- `.github/workflows/sync-tasks.yml`
+
+Setup minimum di GitHub:
+- buat secret repository `GH_TASK_SYNC_TOKEN`
+- token harus punya izin untuk membuat issue
+- jika ingin issue otomatis masuk GitHub Project, set repository variable `GITHUB_PROJECT_ID`
+
+Cara kerja:
+- workflow berjalan saat `TASKS.md` di-push
+- workflow juga bisa dijalankan manual lewat `workflow_dispatch`
+- setiap checklist `- [ ] ...` di luar section `Done` akan dibuat menjadi issue berlabel `task`, `backlog`, dan `task-sync`
+- issue yang sudah pernah dibuat tidak akan diduplikasi karena script memakai sync marker stabil di body issue
+
 ## Definition of Done
 
 Sebuah perubahan dianggap selesai jika:
