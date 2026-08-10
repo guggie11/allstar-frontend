@@ -2,6 +2,9 @@
 
 Dokumen ini menjadi ringkasan backlog implementasi MVP frontend untuk `Allstar`. Issue GitHub tetap menjadi artefak kerja resmi, tetapi file ini dipakai sebagai peta prioritas.
 
+Catatan:
+- setiap checklist `- [ ]` di file ini dapat disinkronkan menjadi GitHub Issue melalui workflow `Sync Tasks To GitHub`
+
 ## Current Priority
 
 Fase implementasi pertama frontend:
