@@ -2,6 +2,24 @@
 
 Dokumen ini mendefinisikan tim developer berbasis AI untuk mengembangkan aplikasi secara terstruktur, aman, dan dapat diaudit.
 
+## GitHub Sebagai SSOT
+
+Untuk repo ini, GitHub adalah source of truth tunggal bagi `Team Onyet`.
+
+Artefak resmi hanya dianggap valid jika tercatat di GitHub melalui:
+- file di repository
+- GitHub Issues
+- Pull Requests
+- review comment
+- status CI
+
+Aturan operasional:
+- task resmi harus punya issue atau PR yang bisa dirujuk
+- perubahan resmi harus ada commit dan diff
+- keputusan teknis penting harus ditulis di file repo atau PR comment
+- hasil validasi harus tercatat di PR atau dokumen repo
+- merge hanya dilakukan setelah approval manusia
+
 ## Tujuan
 
 Team `onyet` dipakai untuk:
@@ -104,11 +122,11 @@ Dipakai saat:
 ## Workflow Standar
 
 1. Manusia memberi goal ke `onyet-lead`.
-2. `onyet-lead` memecah goal menjadi task kecil dan berurutan.
-3. `onyet-architect` dipanggil jika task menyentuh desain sistem.
-4. `onyet-backend` atau `onyet-frontend` mengerjakan implementasi.
-5. `onyet-qa` menyiapkan dan menjalankan validasi.
-6. `onyet-reviewer` mengaudit hasil akhir.
+2. `onyet-lead` memecah goal menjadi issue atau task kecil dan berurutan.
+3. `onyet-architect` dipanggil jika task menyentuh desain sistem dan menulis keputusan teknis yang relevan.
+4. `onyet-backend` atau `onyet-frontend` mengerjakan implementasi di branch terpisah dan membuka PR.
+5. `onyet-qa` menyiapkan dan menjalankan validasi, lalu mencatat hasilnya di PR atau dokumen repo.
+6. `onyet-reviewer` mengaudit diff, risiko, dan kelengkapan validasi.
 7. Manusia memberi approval untuk merge atau release.
 
 ## Format Task
@@ -135,6 +153,7 @@ Sebuah task dianggap selesai jika:
 - lint, typecheck, atau test yang relevan sudah dijalankan
 - reviewer tidak menemukan blocker
 - ada catatan validasi yang bisa dibaca manusia
+- ada issue atau PR yang merekam konteks dan hasil kerja
 
 ## Aturan Eskalasi
 
@@ -204,6 +223,15 @@ Supaya team `onyet` efektif, tambahkan file berikut saat project mulai berkemban
 - `ARCHITECTURE.md`
 - `CONTRIBUTING.md`
 - `TASKS.md`
+
+## Konvensi GitHub
+
+- `main` harus selalu dalam kondisi stabil.
+- Semua perubahan masuk lewat Pull Request.
+- Satu PR harus fokus pada satu task kecil.
+- Nama branch disarankan memakai format `feature/...`, `fix/...`, atau `chore/...`.
+- Issue harus memuat goal, scope, acceptance criteria, dan validasi.
+- PR harus memuat ringkasan perubahan, cara verifikasi, dan risiko.
 
 ## Template Delegasi
 
